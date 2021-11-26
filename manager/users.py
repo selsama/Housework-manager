@@ -18,13 +18,16 @@ def login(username, password):
 def logout():
     del session["username"]
 
-def register(username, password):
-    hash_value = generate_password_hash(password)
+def register(username, password1, password2):
+    if password1 != password2:
+        return False
+    hash_value = generate_password_hash(password1)
     try:
         sql = "INSERT INTO users (username,password) VALUES (:username,:password)"
         db.session.execute(sql, {"username":username, "password":hash_value})
         db.session.commit()
     except:
+        print("error")
         return False
     
 def username():

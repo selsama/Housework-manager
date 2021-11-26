@@ -17,13 +17,23 @@ def login():
     users.login(username, password)
     return redirect("/")
 
+@app.route("/register")
+def register():
+    return render_template("signup.html")
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    username = request.form["username"]
+    password1 = request.form["password1"]
+    password2 = request.form["password2"]
+    users.register(username, password1, password2)
+    return redirect("/")
+
+
 @app.route("/logout")
 def logout():
     del session["username"]
     return redirect("/")
-
-# @app.route("signup")
-# def signup():
 
 
 @app.route("/myHouseholds", methods=["POST"])
