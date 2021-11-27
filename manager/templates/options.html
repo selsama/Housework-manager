@@ -1,0 +1,15 @@
+<title>Housework manager</title>
+<h2>Housework manager</h2>
+
+{% if session.username %}
+<p>You are logged in as {{ session.username }}</p>
+
+<form action="/delete" method="POST">
+<p>To delete your account, please enter your password<br>
+<input type="password" name="password"></p>
+<input type="submit" value="Delete account">
+</form>
+{% else %}
+<p>You need to log in to see account options</p>
+{% endif %}
+<a href="/">Front page</a>

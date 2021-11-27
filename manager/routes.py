@@ -26,15 +26,26 @@ def signup():
     username = request.form["username"]
     password1 = request.form["password1"]
     password2 = request.form["password2"]
-    users.register(username, password1, password2)
+    nickname = request.form["nickname"]
+    users.register(username, password1, password2, nickname)
     return redirect("/")
-
 
 @app.route("/logout")
 def logout():
-    del session["username"]
+    users.logout()
     return redirect("/")
 
+@app.route("/options")
+def options():
+    return render_template("options.html")
+
+@app.route("/delete", methods=["POST"])
+def delete():
+    print("here")
+    password = request.form["password"]
+    print("here")
+    users.deleteUser(password)
+    return redirect("/")
 
 @app.route("/myHouseholds", methods=["POST"])
 def myHouseholds():
