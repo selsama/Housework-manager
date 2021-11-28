@@ -1,19 +1,5 @@
-<title>Housework manager</title>
-<h2>Housework manager</h2>
-Welcome!
-
-{% if session.username %}
-<p>You are logged in as {{ session.username }}</p>
-<p><a href="/options">Account options</a></p>
-<a href="/logout">Log out</a>
-{% else %}
-<form action="/login" method="POST">
-<p>Username:<br>
-<input type="text" name="username"></p>
-<p>Password:<br>
-<input type="password" name="password"></p>
-<input type="submit" value="Log in">
-</form>
-
-<a href="/register">Register</a>
-{% endif %}
+{% extends "layout.html" %}
+{% block title %}Front page{% endblock %}
+{% block content %}
+<h3>Welcome!</h3>
+{% endblock %}

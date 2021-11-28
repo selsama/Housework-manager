@@ -1,7 +1,7 @@
 <!doctype html>
 <title>Housework manager - {% block title %}{% endblock %}</title>
 <h2>Housework manager</h2>
-<p><a href="/index">Front page</a></p>
+<p><a href="/">Front page</a> - <a href="/myHouseholds">My Households</a></p>
 {% if session.username %}
 <p>You are logged in as {{ session.username }}</p>
 <p><a href="/options">Account options</a> 
@@ -11,7 +11,7 @@
 <hr>
 
 {% else %}
-<p>You need to log in to see this page</p>
+<p>Please log in</p>
 <form action="/login" method="POST">
 <p>Username:<br>
 <input type="text" name="username"></p>

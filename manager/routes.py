@@ -5,6 +5,7 @@ from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import users
+import households
 
 @app.route("/")
 def index():
@@ -58,5 +59,6 @@ def createHousehold():
 
 @app.route("/new", methods=["POST"])
 def new():
-    # TODO: create household
+    name = request.form["name"]
+    households.create(name)
     return redirect("/myHouseholds") # TODO: direct to the household instead
