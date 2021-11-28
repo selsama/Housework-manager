@@ -15,6 +15,7 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
     users.login(username, password)
+    # TODO: Find out how to return the page the user was at after login
     return redirect("/")
 
 @app.route("/register")
@@ -47,6 +48,15 @@ def delete():
     users.deleteUser(password)
     return redirect("/")
 
-@app.route("/myHouseholds", methods=["POST"])
+@app.route("/myHouseholds")
 def myHouseholds():
-    return render_template("myHouseholds.html", name = request.form["name"])
+    return render_template("myHouseholds.html")
+
+@app.route("/createHousehold")
+def createHousehold():
+    return render_template("createHousehold.html")
+
+@app.route("/new", methods=["POST"])
+def new():
+    # TODO: create household
+    return redirect("/myHouseholds") # TODO: direct to the household instead
