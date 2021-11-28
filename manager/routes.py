@@ -1,5 +1,5 @@
 from app import app
-from flask import redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -41,9 +41,9 @@ def options():
 
 @app.route("/delete", methods=["POST"])
 def delete():
-    print("here")
     password = request.form["password"]
-    print("here")
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
     users.deleteUser(password)
     return redirect("/")
 

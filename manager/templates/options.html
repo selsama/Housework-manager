@@ -7,6 +7,7 @@
 <form action="/delete" method="POST">
 <p>To delete your account, please enter your password<br>
 <input type="password" name="password"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Delete account">
 </form>
 {% else %}
