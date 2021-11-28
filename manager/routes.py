@@ -51,7 +51,8 @@ def delete():
 
 @app.route("/myHouseholds")
 def myHouseholds():
-    return render_template("myHouseholds.html")
+    list = households.getHouseholds()
+    return render_template("myHouseholds.html", households=list)
 
 @app.route("/createHousehold")
 def createHousehold():

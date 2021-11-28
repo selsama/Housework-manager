@@ -11,3 +11,7 @@ def create(name):
         print("error in creating household")
         return False
 
+def getHouseholds():
+    sql = "SELECT * FROM households"
+    result = db.session.execute(sql)
+    return result.fetchall()

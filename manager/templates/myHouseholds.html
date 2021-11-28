@@ -3,5 +3,8 @@
 {% block content %}
 <h3>My households</h3>
 <!-- Display households here-->
-<a href="/createHousehold">Create new household</a>
+{% for hold in households %}
+{{ hold.name }}
+{% endfor %}
+<p><a href="/createHousehold">Create new household</a></p>
 {% endblock %}
