@@ -63,3 +63,8 @@ def new():
     name = request.form["name"]
     households.create(name)
     return redirect("/myHouseholds") # TODO: direct to the household instead
+
+@app.route("/household<int:id>")
+def household(id):
+    name = households.getName(id)
+    return render_template("household.html", id=id, name=name)

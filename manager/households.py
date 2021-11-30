@@ -15,3 +15,8 @@ def getHouseholds():
     sql = "SELECT * FROM households"
     result = db.session.execute(sql)
     return result.fetchall()
+
+def getName(id):
+    sql = "SELECT name FROM households WHERE id=:id"
+    result = db.session.execute(sql, {"id":id})
+    return result.fetchone().name

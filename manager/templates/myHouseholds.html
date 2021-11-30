@@ -4,7 +4,7 @@
 <h3>My households</h3>
 <!-- Display households here-->
 {% for hold in households %}
-{{ hold.name }}
+<p><a href="/household{{ hold.id }}">{{ hold.name }}</a></p>
 {% endfor %}
 <p><a href="/createHousehold">Create new household</a></p>
 {% endblock %}
