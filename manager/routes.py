@@ -51,7 +51,7 @@ def delete():
 
 @app.route("/myHouseholds")
 def myHouseholds():
-    list = households.getHouseholds()
+    list = households.getHouseholds(session["userID"])
     return render_template("myHouseholds.html", households=list)
 
 @app.route("/createHousehold")
@@ -61,7 +61,9 @@ def createHousehold():
 @app.route("/new", methods=["POST"])
 def new():
     name = request.form["name"]
-    households.create(name)
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    households.create(name, session["userID"])
     return redirect("/myHouseholds") # TODO: direct to the household instead
 
 @app.route("/household<int:id>")

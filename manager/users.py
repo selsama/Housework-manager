@@ -14,6 +14,7 @@ def login(username, password):
         if check_password_hash(user.password, password):
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
+            session["userID"] = userID()
             return True
         else:
             print("incorrect password")
@@ -21,6 +22,8 @@ def login(username, password):
 
 def logout():
     del session["username"]
+    del session["csrf_token"]
+    del session["userID"]
 
 def register(username, password1, password2, nickname):
     if password1 != password2:
@@ -56,3 +59,8 @@ def deleteUser(password):
 
 def username():
     return session.get("username")
+
+def userID():
+    sql = "SELECT id FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":username()})
+    return result.fetchone().id
