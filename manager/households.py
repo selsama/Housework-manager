@@ -1,5 +1,5 @@
 from db import db
-
+import tasks
 
 def create(name, creator):  
     try:
@@ -25,3 +25,10 @@ def getName(id):
     sql = "SELECT name FROM households WHERE id=:id"
     result = db.session.execute(sql, {"id":id})
     return result.fetchone().name
+
+def createTask(id, name, desc):
+    taskID = tasks.create(id, name, desc)
+    return taskID
+
+def getTasks(id):
+    return False

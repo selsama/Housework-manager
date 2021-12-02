@@ -2,5 +2,11 @@
 {% block title %}Household {{ name }}{% endblock %}
 {% block content %}
 {{ name }}
+Tasks:
+{% for task in tasks %}
+<p>{{ task.name }}</p>
+{% endfor %}
+
+<p><a href="/household{{ id }}/createTask">Create new task</a></p>
 
 {% endblock %}

@@ -69,4 +69,24 @@ def new():
 @app.route("/household<int:id>")
 def household(id):
     name = households.getName(id)
+    # tasks = household.getTasks(id)
     return render_template("household.html", id=id, name=name)
+
+@app.route("/household<int:id>/createTask")
+def createTask(id):
+    name = households.getName(id)
+    return render_template("createTask.html", holdID = id, holdName = name)
+
+@app.route("/household<int:id>/newTask", methods=["POST"])
+def newTask(id):
+    name = request.form["name"]
+    desc = request.form["desc"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    households.createTask(id, name, desc)
+    return redirect("/household" + str(id)) # TODO: direct to the task instead
+
+# @app.route("/task<int:id>")
+# def household(id):
+#     name = households.getName(id)
+#     return render_template("household.html", id=id, name=name)
