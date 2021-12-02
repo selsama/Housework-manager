@@ -69,8 +69,8 @@ def new():
 @app.route("/household<int:id>")
 def household(id):
     name = households.getName(id)
-    # tasks = household.getTasks(id)
-    return render_template("household.html", id=id, name=name)
+    tasks = households.getTasks(id)
+    return render_template("household.html", id=id, name=name, tasks = tasks)
 
 @app.route("/household<int:id>/createTask")
 def createTask(id):

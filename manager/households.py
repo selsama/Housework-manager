@@ -31,4 +31,4 @@ def createTask(id, name, desc):
     return taskID
 
 def getTasks(id):
-    return False
+    return tasks.getTasks(id)

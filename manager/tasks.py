@@ -12,3 +12,8 @@ def create(holdID, name, description):
         print("error in creating task")
         db.session.rollback()
         return False
+
+def getTasks(holdID):
+    sql = "SELECT * FROM tasks WHERE householdid=:holdID"
+    result = db.session.execute(sql, {"holdID":holdID})
+    return result.fetchall()
