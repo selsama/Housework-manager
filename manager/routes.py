@@ -39,7 +39,7 @@ def logout():
 
 @app.route("/options")
 def options():
-    return render_template("options.html")
+    return render_template("options.html", nick=users.nickname())
 
 @app.route("/delete", methods=["POST"])
 def delete():
@@ -47,6 +47,14 @@ def delete():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
     users.deleteUser(password)
+    return redirect("/")
+
+@app.route("/edit", methods=["POST"])
+def edit():
+    nick = request.form["nickname"]
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    users.changeNickname(nick)
     return redirect("/")
 
 @app.route("/myHouseholds")

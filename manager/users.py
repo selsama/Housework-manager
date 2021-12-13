@@ -57,8 +57,26 @@ def deleteUser(password):
             return False
 
 
+def changeNickname(nick):
+    if nick == nickname():
+        return
+    try:
+        sql = "UPDATE users SET nickname=:nickname WHERE id =:id"
+        db.session.execute(sql, {"nickname":nick, "id":userID()})
+        db.session.commit()
+        return True
+    except:
+        print("couldn't update nick")
+        return False
+
+
 def username():
     return session.get("username")
+
+def nickname():
+    sql = "SELECT nickname FROM users WHERE username=:username"
+    result = db.session.execute(sql, {"username":username()})
+    return result.fetchone().nickname
 
 def userID():
     sql = "SELECT id FROM users WHERE username=:username"
