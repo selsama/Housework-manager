@@ -7,7 +7,7 @@ def create(name, creator):
         db.session.execute(sql, {"name":name})
         sql = "SELECT MAX(id) FROM households"
         id = db.session.execute(sql).fetchone()
-        sql = "INSERT INTO admins (householdID, userID) VALUES (:houseID, :userID)"
+        sql = "INSERT INTO access (householdID, userID, admin) VALUES (:houseID, :userID, TRUE)"
         db.session.execute(sql, {"houseID":id.max, "userID":creator})
         db.session.commit()
         return True
@@ -17,7 +17,7 @@ def create(name, creator):
         return False
 
 def getHouseholds(user):
-    sql = "SELECT h.* FROM households h, admins a WHERE h.id = a.householdID AND a.userID = :user"
+    sql = "SELECT h.* FROM households h, access a WHERE h.id = a.householdID AND a.userID = :user"
     result = db.session.execute(sql, {"user": user})
     return result.fetchall()
 
