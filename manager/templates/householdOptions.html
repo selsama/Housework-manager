@@ -10,6 +10,8 @@
     <p>Here you can add other users to household {{ name }}</p>
     <p>Give their username: <br>
     <input type="text" name="username"></p>
+    <p> Make admin
+    <input type="checkbox" name="admin"></p>
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="hidden" name="action" value="add">
     <input type="submit" value="Add them!">

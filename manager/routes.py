@@ -95,11 +95,15 @@ def householdEdit(id):
         abort(403)
     if request.form["action"] == "add":
         user = users.userID(request.form["username"])
+        if request.form.get("admin"):
+            admin = True
+        else:
+            admin = False
         if user == -1:
             # TODO: give error message
             return
         else:
-            households.giveRights(id, user, True)
+            households.giveRights(id, user, admin)
     if request.form["action"] == "admin":
         userID = request.form["user"]
         if request.form.get("admin"):
