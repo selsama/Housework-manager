@@ -28,4 +28,11 @@ Tasks:
 <p><a href="/household{{ id }}/options">Household options</a></p>
 {% endif %}
 
+<form action="/household{{ id }}/edit" method="POST">
+    <p>You can remove yourself from this household.
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+    <input type="hidden" name="action" value="leave">
+    <input type="submit" value="Leave {{ name }}"></p>
+</form>
+
 {% endblock %}

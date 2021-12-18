@@ -113,6 +113,10 @@ def householdEdit(id):
     if request.form["action"] == "rename":
         name = request.form["name"]
         households.rename(id, name)
+    if request.form["action"] == "leave":
+        # TODO: what happens if the last admin leaves?
+        households.removeUser(session["userID"], id)
+        return redirect("/myHouseholds")
     return redirect("/household" + str(id) + "/options")
 
 @app.route("/household<int:id>/createTask")
