@@ -78,12 +78,14 @@ def new():
 def household(id):
     name = households.getName(id)
     tasks = households.getTasks(id)
-    return render_template("household.html", id=id, name=name, tasks = tasks)
+    contributors = households.getContributors(id)
+    return render_template("household.html", id=id, name=name, tasks = tasks, contributors = contributors)
 
 @app.route("/household<int:id>/options")
 def householdOptions(id):
     name = households.getName(id)
-    return render_template("householdOptions.html", id=id, name=name)
+    contributors = households.getContributors(id)
+    return render_template("householdOptions.html", id=id, name=name, contributors = contributors)
 
 @app.route("/household<int:id>/edit", methods=["POST"])
 def householdEdit(id):
@@ -96,6 +98,16 @@ def householdEdit(id):
             return
         else:
             households.giveRights(id, user, True)
+    if request.form["action"] == "admin":
+        nick = request.form["nick"]
+        if request.form.get("admin"):
+            admin = True
+        else:
+            admin = False
+        households.updateRights(id, nick, admin)
+    if request.form["action"] == "remove":
+        nick = request.form["nick"]
+        households.removeUser(nick, id)
     if request.form["action"] == "rename":
         name = request.form["name"]
         households.rename(id, name)

@@ -2,6 +2,12 @@
 {% block title %}Household {{ name }}{% endblock %}
 {% block content %}
 <p>{{ name }}</p>
+<p>Contributors:
+{% for nick in contributors %}
+{{ nick.nickname }} &ensp;
+{% endfor %}
+</p>
+
 Tasks:
 {% for task in tasks %}
 <p>{{ task.name }}: {{ task.description }}</p>

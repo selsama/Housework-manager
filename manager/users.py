@@ -80,5 +80,8 @@ def nickname():
 
 def userID(username):
     sql = "SELECT id FROM users WHERE username=:username"
-    result = db.session.execute(sql, {"username":username})
-    return result.fetchone().id
+    result = db.session.execute(sql, {"username":username}).fetchone()
+    if not result:
+        print("couldn't find username")
+        return -1
+    return result.id
