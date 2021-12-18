@@ -43,7 +43,6 @@
     <input type="submit" value="Rename">
 </form>
 
-<a href="/household{{ id }}">Back to household {{ name }}</a>
 {% else %}
 
 You need to be household admin to edit household options. <br>
@@ -56,5 +55,7 @@ You can ask {{ name }}'s admins to give you admin rights: <br>
 {% endfor %}
 
 {% endif %}
+
+<a href="/household{{ id }}">Back to household {{ name }}</a>
 
 {% endblock %}
