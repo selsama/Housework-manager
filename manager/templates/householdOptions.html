@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Household options{% endblock %}
 {% block content %}
+{% if admin %}
 <h3>Household options</h3>
 <h4>Editing {{ name }}</h4>
 
@@ -43,4 +44,17 @@
 </form>
 
 <a href="/household{{ id }}">Back to household {{ name }}</a>
+{% else %}
+
+You need to be household admin to edit household options. <br>
+You can ask {{ name }}'s admins to give you admin rights: <br>
+
+{% for user in contributors %}
+{% if user.admin %}
+- {{ user.nickname }} <br>
+{% endif %}
+{% endfor %}
+
+{% endif %}
+
 {% endblock %}

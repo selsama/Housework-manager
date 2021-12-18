@@ -69,3 +69,8 @@ def getUserIdFromNick(nick, id):
     sql = "SELECT u.id FROM users u, access a WHERE u.nickname=:nick AND a.householdid=:hold AND u.id = a.userid"
     result = db.session.execute(sql, {"nick":nick, "hold":id})
     return result.fetchone().id
+
+def isAdmin(userID, id):
+    sql = "SELECT admin FROM access WHERE userid=:user AND householdid=:hold"
+    result = db.session.execute(sql, {"user":userID, "hold":id})
+    return result.fetchone().admin

@@ -4,7 +4,7 @@
 <p>{{ name }}</p>
 <p>Contributors:
 {% for nick in contributors %}
-{{ nick.nickname }} &ensp;
+{{ nick.nickname }} {% if nick.admin %} ADMIN {% endif %} &ensp;
 {% endfor %}
 </p>
 
@@ -15,7 +15,8 @@ Tasks:
 
 <p><a href="/household{{ id }}/createTask">Create new task</a></p>
 
-<!-- TODO: Check whether admin -->
+{% if admin %}
 <p><a href="/household{{ id }}/options">Household options</a></p>
+{% endif %}
 
 {% endblock %}

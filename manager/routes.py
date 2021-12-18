@@ -79,13 +79,14 @@ def household(id):
     name = households.getName(id)
     tasks = households.getTasks(id)
     contributors = households.getContributors(id)
-    return render_template("household.html", id=id, name=name, tasks = tasks, contributors = contributors)
+    admin = households.isAdmin(session["userID"], id)
+    return render_template("household.html", id=id, name=name, tasks=tasks, contributors=contributors, admin=admin)
 
 @app.route("/household<int:id>/options")
 def householdOptions(id):
     name = households.getName(id)
     contributors = households.getContributors(id)
-    return render_template("householdOptions.html", id=id, name=name, contributors = contributors)
+    return render_template("householdOptions.html", id=id, name=name, contributors=contributors)
 
 @app.route("/household<int:id>/edit", methods=["POST"])
 def householdEdit(id):
