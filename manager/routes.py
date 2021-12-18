@@ -92,12 +92,13 @@ def householdEdit(id):
     if request.form["action"] == "add":
         user = users.userID(request.form["username"])
         if user == -1:
-            # give error message
+            # TODO: give error message
             return
         else:
             households.giveRights(id, user, True)
     if request.form["action"] == "rename":
-        return
+        name = request.form["name"]
+        households.rename(id, name)
     return redirect("/household" + str(id) + "/options")
 
 @app.route("/household<int:id>/createTask")

@@ -42,3 +42,8 @@ def giveRights(holdID, userID, admin):
         sql = "INSERT INTO access (householdid, userid, admin) VALUES (:hold, :user, :admin)"
     db.session.execute(sql, {"hold":holdID, "user":userID, "admin":admin})
     db.session.commit()
+
+def rename(id, newName):
+    sql = "UPDATE households SET name=:new WHERE id=:hold"
+    db.session.execute(sql, {"new":newName, "hold":id})
+    db.session.commit()
