@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %}Household options{% endblock %}
+{% block content %}
+<h3>Household options</h3>
+<h4>Editing {{ name }}</h4>
+
+<form action="/household{{ id }}/edit" method="POST">
+<h5>Add users</h5>
+<p>Here you can add other users to household {{ name }}</p>
+<p>Give their username: <br>
+<input type="text" name="username"></p>
+<p>Give admin rights?<br>
+<input type="checkbox" name="admin"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="hidden" name="action" value="add">
+<input type="submit" value="Add them!">
+</form>
+
+<form action="/household{{ id }}/edit" method="POST">
+<h5>Change name</h5>
+<p>Here you can change the household name<br>
+<input type="text" name="name" value="{{ name }}"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="hidden" name="action" value="rename">
+<input type="submit" value="Rename">
+</form>
+{% endblock %}

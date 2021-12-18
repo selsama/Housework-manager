@@ -80,6 +80,26 @@ def household(id):
     tasks = households.getTasks(id)
     return render_template("household.html", id=id, name=name, tasks = tasks)
 
+@app.route("/household<int:id>/options")
+def householdOptions(id):
+    name = households.getName(id)
+    return render_template("householdOptions.html", id=id, name=name)
+
+@app.route("/household<int:id>/edit", methods=["POST"])
+def householdEdit(id):
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
+    if request.form["action"] == "add":
+        user = users.userID(request.form["username"])
+        if user == -1:
+            # give error message
+            return
+        else:
+            households.giveRights(id, user, True)
+    if request.form["action"] == "rename":
+        return
+    return redirect("/household" + str(id) + "/options")
+
 @app.route("/household<int:id>/createTask")
 def createTask(id):
     name = households.getName(id)

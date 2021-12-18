@@ -14,7 +14,7 @@ def login(username, password):
         if check_password_hash(user.password, password):
             session["username"] = username
             session["csrf_token"] = secrets.token_hex(16)
-            session["userID"] = userID()
+            session["userID"] = userID(username)
             return True
         else:
             print("incorrect password")
@@ -62,7 +62,7 @@ def changeNickname(nick):
         return
     try:
         sql = "UPDATE users SET nickname=:nickname WHERE id =:id"
-        db.session.execute(sql, {"nickname":nick, "id":userID()})
+        db.session.execute(sql, {"nickname":nick, "id":session.get("userID")})
         db.session.commit()
         return True
     except:
@@ -78,7 +78,7 @@ def nickname():
     result = db.session.execute(sql, {"username":username()})
     return result.fetchone().nickname
 
-def userID():
+def userID(username):
     sql = "SELECT id FROM users WHERE username=:username"
-    result = db.session.execute(sql, {"username":username()})
+    result = db.session.execute(sql, {"username":username})
     return result.fetchone().id

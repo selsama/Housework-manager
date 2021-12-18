@@ -32,3 +32,13 @@ def createTask(id, name, desc):
 
 def getTasks(id):
     return tasks.getTasks(id)
+
+def giveRights(holdID, userID, admin):
+    sql = "SELECT 1 FROM access WHERE householdid=:hold AND userid=:user"
+    result = db.session.execute(sql, {"hold": holdID, "user": userID})
+    if result.fetchone():
+        sql = "UPDATE access SET admin=:admin WHERE householdid=:hold AND userid=:user"
+    else:
+        sql = "INSERT INTO access (householdid, userid, admin) VALUES (:hold, :user, :admin)"
+    db.session.execute(sql, {"hold":holdID, "user":userID, "admin":admin})
+    db.session.commit()
