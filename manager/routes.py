@@ -86,7 +86,8 @@ def household(id):
 def householdOptions(id):
     name = households.getName(id)
     contributors = households.getContributors(id)
-    return render_template("householdOptions.html", id=id, name=name, contributors=contributors)
+    admin = households.isAdmin(session["userID"], id)
+    return render_template("householdOptions.html", id=id, name=name, contributors=contributors, admin=admin)
 
 @app.route("/household<int:id>/edit", methods=["POST"])
 def householdEdit(id):
@@ -100,15 +101,15 @@ def householdEdit(id):
         else:
             households.giveRights(id, user, True)
     if request.form["action"] == "admin":
-        nick = request.form["nick"]
+        userID = request.form["user"]
         if request.form.get("admin"):
             admin = True
         else:
             admin = False
-        households.updateRights(id, nick, admin)
+        households.updateRights(id, userID, admin)
     if request.form["action"] == "remove":
-        nick = request.form["nick"]
-        households.removeUser(nick, id)
+        user = request.form["user"]
+        households.removeUser(user, id)
     if request.form["action"] == "rename":
         name = request.form["name"]
         households.rename(id, name)

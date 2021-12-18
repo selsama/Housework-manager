@@ -43,8 +43,7 @@ def giveRights(holdID, userID, admin):
     db.session.execute(sql, {"hold":holdID, "user":userID, "admin":admin})
     db.session.commit()
 
-def updateRights(holdID, nick, admin):
-    userID = getUserIdFromNick(nick, holdID)
+def updateRights(holdID, userID, admin):
     sql = "UPDATE access SET admin=:admin WHERE householdid=:hold AND userid=:user"
     db.session.execute(sql, {"hold":holdID, "user":userID, "admin":admin})
     db.session.commit() 
@@ -55,20 +54,14 @@ def rename(id, newName):
     db.session.commit()
 
 def getContributors(id):
-    sql = "SELECT u.nickname, a.admin FROM access a, users u WHERE a.householdid=:hold AND u.id=a.userid"
+    sql = "SELECT u.id, u.nickname, a.admin FROM access a, users u WHERE a.householdid=:hold AND u.id=a.userid"
     result = db.session.execute(sql, {"hold":id})
     return result.fetchall()
 
-def removeUser(nick, id):
-    userID = getUserIdFromNick(nick, id)
+def removeUser(userID, holdID):
     sql = "DELETE FROM access WHERE userid=:user AND householdid=:hold"
-    db.session.execute(sql, {"user":userID, "hold":id})
+    db.session.execute(sql, {"user":userID, "hold":holdID})
     db.session.commit()
-
-def getUserIdFromNick(nick, id):
-    sql = "SELECT u.id FROM users u, access a WHERE u.nickname=:nick AND a.householdid=:hold AND u.id = a.userid"
-    result = db.session.execute(sql, {"nick":nick, "hold":id})
-    return result.fetchone().id
 
 def isAdmin(userID, id):
     sql = "SELECT admin FROM access WHERE userid=:user AND householdid=:hold"
