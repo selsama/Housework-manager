@@ -29,7 +29,13 @@ Tasks:
 {% endif %}
 
 <form action="/household{{ id }}/edit" method="POST">
-    <p>You can remove yourself from this household.
+    <p>You can remove yourself from this household.<br>
+    {% if last %}
+    WARNING. You are the last contributor to this household. If you leave, {{ name }} will be permanently deleted.
+    {% elif admin %}
+    NOTE: If you are the last admin, this will assign admin rights to a remaining contributor. 
+    If you instead want to choose who becomes admin, you can give them admin rights under Household options before leaving.
+    {% endif %}
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     <input type="hidden" name="action" value="leave">
     <input type="submit" value="Leave {{ name }}"></p>

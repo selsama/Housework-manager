@@ -67,3 +67,22 @@ def isAdmin(userID, id):
     sql = "SELECT admin FROM access WHERE userid=:user AND householdid=:hold"
     result = db.session.execute(sql, {"user":userID, "hold":id})
     return result.fetchone().admin
+
+def reactToAdminLeaving(id):
+    sql = "SELECT 1 FROM access WHERE householdid=:hold AND admin=TRUE"
+    result = db.session.execute(sql, {"hold":id})
+    if result.fetchone():
+        return
+    else:
+        sql = "SELECT userid FROM access WHERE householdid=:hold"
+        result = db.session.execute(sql, {"hold":id})
+        user = result.fetchone()
+        if user:
+            updateRights(id, user.userid, True)
+        else:
+            deleteHousehold(id)
+
+def deleteHousehold(id):
+    # TODO
+    return
+

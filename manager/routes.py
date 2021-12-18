@@ -80,7 +80,7 @@ def household(id):
     tasks = households.getTasks(id)
     contributors = households.getContributors(id)
     admin = households.isAdmin(session["userID"], id)
-    return render_template("household.html", id=id, name=name, tasks=tasks, contributors=contributors, admin=admin)
+    return render_template("household.html", id=id, name=name, tasks=tasks, contributors=contributors, admin=admin, last = (len(contributors) == 1))
 
 @app.route("/household<int:id>/options")
 def householdOptions(id):
@@ -118,8 +118,10 @@ def householdEdit(id):
         name = request.form["name"]
         households.rename(id, name)
     if request.form["action"] == "leave":
-        # TODO: what happens if the last admin leaves?
+        admin = households.isAdmin(session["userID"], id)
         households.removeUser(session["userID"], id)
+        if admin:
+            households.reactToAdminLeaving(id)
         return redirect("/myHouseholds")
     return redirect("/household" + str(id) + "/options")
 
