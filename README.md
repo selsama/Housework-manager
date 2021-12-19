@@ -3,32 +3,38 @@
 Tietokantasovellus-kurssin harjoitustyö
 
 
-I will create an application for managing and sharing housework tasks. Registered users can have access to Household(s), which hold Housework Task(s). These tasks (e.g. "Clean bathroom", "Grocery shopping") each hold one or more attributes.
+Application for managing and sharing housework tasks. Registered users can have access to Household(s), which hold Housework Task(s). These tasks (e.g. "Clean bathroom", "Grocery shopping") each hold one or more attributes.
 
+Application is available [here](https://tsoha-housework-manager.herokuapp.com/).
 
-Application features:
+There are two test users: tester / password and user / MYpassword
 
+The "beef" of the application is in _routes.py_, which handles requests, using modules _users.py_, _households.py_ and _tasks.py_. Html-files are found under _templates_, and they utilize _layout.html_.
 
-- User can log in and out and create a new user
-- User has a username (unique) and name shown in the application (not unique)
-- User can delete their account
-- After logging in, the user will see the household(s) they have access to
-- Household has a name and can hold housework tasks
+The functionality of the application:
+
+- User can log in and out and create a new user 
+- User has a username (unique) and nickname shown in the application (not unique)
+- User can delete their account 
+- User can change their nickname
+- After logging in, the user will see the household(s) they have access to 
+- Household has a name and can hold housework tasks in a household they have access to
 - User can see in a household the names of users that have access to that household 
-- User can create a new household, that initially only they have access to. They become the household admin
-- Household admin can give other users access or admin rights to the household based on username
-- Household admin can remove users from the household
+- User can create a new household, that initially only they have access to. They become the household admin 
+- Household admin can give other users access or admin rights to the household based on username 
+- Household admin can remove users from the household 
 - User can remove themself from a household they have access to
-- User can view, modify and add housework tasks under a household they have access to
-- Housework tasks include attributes: name, description, estimated time to complete, deadline, user(s) assigned to.
-- Task attributes can be empty
-- User can create custom task attributes
+- User can view, modify and add housework 
+- Housework tasks include attributes: name, description, deadline, user(s) assigned to, completed
+- Task attributes can be empty 
 - User can assign themself to housework tasks 
-- Household admin can assign other users to tasks
-- Housework tasks can be marked hidden or unavailable for certain users, who are not household admins. (for example, to filter out tasks that a kid can't do from their view)
+- Housework tasks can be marked completed
+- Tasks can be deleted
 - Number of contributing users/admins in a household is not limited
-- In household view, tasks can be arranged and filtered based on their attributes
-- Housework tasks can be made recurring
-- Housework tasks can be copied to make a base for a new task
-- User cannot see tasks from households they don't have access to. User cannot see households they don't have access to. Anyone not logged in cannot see any tasks or households.
 
+Points for improvement/continuing development:
+
+- Application will get into an error state if not logged in user tries to see My Households page, or if logged in user tries to see a household page they don't have access to. This is not pretty, but hey, it works.
+- _routes.py_ has gotten so big it could be refactored. Other refactorings might also be a good idea.
+- Code styling should be improved according to Python practices
+- Current version has no error messages for the user. 
