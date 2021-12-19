@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Task {{ task.name }}{% endblock %}
+{% block content %}
+<h3>{{ task.name }}</h3>
+<a href="/household{{ holdID }}">Back to household</a>
+
+<h5>Task description:</h5>
+{{ task.description }}
+
+
+
+{% endblock %}

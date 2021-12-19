@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Household {{ name }}{% endblock %}
 {% block content %}
-<p>{{ name }}</p>
+<h3>{{ name }}</h3>
 <p>Contributors:
 {% for nick in contributors %}
 {{ nick.nickname }} {% if nick.admin %} ADMIN {% endif %} &ensp;
@@ -18,6 +18,7 @@ Tasks:
     <tr>
       <td>{{ task.name }}</td>
       <td>{{ task.description }}</td>
+      <td><a href="/household{{ id }}/task{{ task.id }}">Go to task</a></td>
     </tr>
     {% endfor %}
   </table> 

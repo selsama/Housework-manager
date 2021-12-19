@@ -17,3 +17,8 @@ def getTasks(holdID):
     sql = "SELECT * FROM tasks WHERE householdid=:holdID"
     result = db.session.execute(sql, {"holdID":holdID})
     return result.fetchall()
+
+def getTask(taskID):
+    sql = "SELECT * FROM tasks WHERE id=:id"
+    result = db.session.execute(sql, {"id":taskID})
+    return result.fetchone()

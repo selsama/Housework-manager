@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 import users
 import households
+import tasks
 
 @app.route("/")
 def index():
@@ -128,7 +129,7 @@ def householdEdit(id):
 @app.route("/household<int:id>/createTask")
 def createTask(id):
     name = households.getName(id)
-    return render_template("createTask.html", holdID = id, holdName = name)
+    return render_template("createTask.html", holdID=id, holdName=name)
 
 @app.route("/household<int:id>/newTask", methods=["POST"])
 def newTask(id):
@@ -139,7 +140,7 @@ def newTask(id):
     households.createTask(id, name, desc)
     return redirect("/household" + str(id)) # TODO: direct to the task instead
 
-# @app.route("/task<int:id>")
-# def household(id):
-#     name = households.getName(id)
-#     return render_template("household.html", id=id, name=name)
+@app.route("/household<int:hold>/task<int:task>")
+def task(hold, task):
+    task = tasks.getTask(task)
+    return render_template("task.html", holdID=hold, task=task)
