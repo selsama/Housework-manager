@@ -32,3 +32,32 @@ def deleteTask(taskID):
     sql = "DELETE FROM tasks WHERE id=:id"
     db.session.execute(sql, {"id":taskID})
     db.session.commit()
+
+def getAssignees(taskID):
+    sql = "SELECT u.id, u.nickname FROM users u, assignees a WHERE a.taskid=:id AND u.id=a.userid"
+    result = db.session.execute(sql, {"id":taskID})
+    return result.fetchall()
+
+def assign(taskID, userID):
+    if isAssigned(userID, taskID):
+        return
+    sql = "INSERT INTO assignees (userid, taskid) VALUES (:user, :task)"
+    db.session.execute(sql, {"user":userID, "task":taskID})
+    db.session.commit()
+
+def deassign(taskID, userID):
+    if not isAssigned(userID, taskID):
+        return
+    sql = "DELETE FROM assignees WHERE userid=:user AND taskid=:task"
+    db.session.execute(sql, {"user":userID, "task":taskID})
+    db.session.commit()
+
+def setAssignees(taskID):
+    return
+
+def isAssigned(userID, taskID):
+    sql = " SELECT 1 FROM assignees WHERE userid=:userID AND taskID=:taskID"
+    result = db.session.execute(sql, {"userID":userID, "taskID":taskID})
+    if result.fetchone():
+        return True
+    return False

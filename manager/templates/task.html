@@ -9,6 +9,15 @@
 
 <br> ----- <br>
 
+<h5>Task assignee(s):</h5>
+<ul>
+    {% for user in assignees %}
+    <li>{{ user.name }}</li>
+    {% endfor %}
+</ul>
+
+<br> ----- <br>
+
 <form action="/household{{ holdID }}/editTask{{ task.id }}" method="POST">
     <input type="submit" value="Edit task">
     <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

@@ -140,23 +140,30 @@ def newTask(id):
     households.createTask(id, name, desc)
     return redirect("/household" + str(id)) # TODO: direct to the task instead
 
-@app.route("/household<int:hold>/task<int:task>")
-def task(hold, task):
-    task = tasks.getTask(task)
-    return render_template("task.html", holdID=hold, task=task)
+@app.route("/household<int:holdID>/task<int:taskID>")
+def task(holdID, taskID):
+    task = tasks.getTask(taskID)
+    assignees = tasks.getAssignees(taskID)
+    return render_template("task.html", holdID=holdID, task=task, assignees=assignees)
 
-@app.route("/household<int:hold>/editTask<int:task>", methods=["POST"])
-def editTask(hold, task):
+@app.route("/household<int:holdID>/editTask<int:taskID>", methods=["POST"])
+def editTask(holdID, taskID):
     if request.form["edit"] == "start":
         pass
     elif request.form["edit"] == "stop":
-        return redirect("/household" + str(hold) + "/task" + str(task))
+        return redirect("/household" + str(holdID) + "/task" + str(taskID))
     elif request.form["edit"] == "delete":
-        tasks.deleteTask(task)
-        return redirect("/household" + str(hold))
+        tasks.deleteTask(taskID)
+        return redirect("/household" + str(holdID))
     elif request.form["edit"] == "save":
         name = request.form["name"]
         desc = request.form["description"]
-        tasks.editTask(task, name, desc)
-    task = tasks.getTask(task)
-    return render_template("editTask.html", holdID=hold, task=task)
+        tasks.editTask(taskID, name, desc)
+        if request.form.get("assigned"):
+            tasks.assign(taskID, session["userID"])
+        else:
+            tasks.deassign(taskID, session["userID"])
+    task = tasks.getTask(taskID)
+    assignees = tasks.getAssignees(taskID)
+    mine = tasks.isAssigned(session["userID"], taskID)
+    return render_template("editTask.html", holdID=holdID, task=task, assignees=assignees, mine=mine)
