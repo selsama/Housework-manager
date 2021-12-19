@@ -1,3 +1,4 @@
+from sqlalchemy.sql.elements import Null
 from app import app
 from flask import abort, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
@@ -133,11 +134,16 @@ def createTask(id):
 
 @app.route("/household<int:id>/newTask", methods=["POST"])
 def newTask(id):
-    name = request.form["name"]
-    desc = request.form["desc"]
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
-    households.createTask(id, name, desc)
+    name = request.form["name"]
+    desc = request.form["description"]
+    if request.form.get("noDeadline"):
+        date = Null
+    else:
+        date = request.form["deadline"]
+        print(date)
+    households.createTask(id, name, desc, str(date))
     return redirect("/household" + str(id)) # TODO: direct to the task instead
 
 @app.route("/household<int:holdID>/task<int:taskID>")

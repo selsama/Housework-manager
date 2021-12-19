@@ -1,9 +1,9 @@
 from db import db
 
-def create(holdID, name, description):
+def create(holdID, name, description, deadline):
     try:
-        sql = "INSERT INTO tasks (name, description, householdid) VALUES (:name, :description, :householdID)"
-        db.session.execute(sql, {"name":name, "description":description, "householdID":holdID})
+        sql = "INSERT INTO tasks (name, description, householdid, deadline) VALUES (:name, :description, :householdID, TO_DATE(:deadline, 'YYYY-MM-DD'))"
+        db.session.execute(sql, {"name":name, "description":description, "householdID":holdID, "deadline":deadline})
         sql = "SELECT MAX(id) FROM tasks"
         id = db.session.execute(sql).fetchone()
         db.session.commit()

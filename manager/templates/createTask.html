@@ -4,10 +4,14 @@
 <h3>Create new task for household {{ holdName }}</h3>
 
 <form action="/household{{ holdID }}/newTask" method="POST">
-<p>Task name:<br>
-<input type="text" name="name"></p>
+<p>Task name: (Required)<br>
+<input type="text" name="name" required></p>
 <p>Task description:<br>
-<input type="text" name="desc"></p>
+<textarea rows = "5" cols = "60" name = "description"></textarea><br></p>
+<p>Task deadline:<br>
+<input type="date" name="deadline" value="2022-01-20">
+<input type="checkbox" name="noDeadline"> Leave empty</p>
+
 <input type="submit" value="Create!">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 </form>

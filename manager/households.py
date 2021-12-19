@@ -26,8 +26,8 @@ def getName(id):
     result = db.session.execute(sql, {"id":id})
     return result.fetchone().name
 
-def createTask(id, name, desc):
-    taskID = tasks.create(id, name, desc)
+def createTask(id, name, desc, deadline):
+    taskID = tasks.create(id, name, desc, deadline)
     return taskID
 
 def getTasks(id):
