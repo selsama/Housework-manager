@@ -15,7 +15,7 @@ def create(holdID, name, description, deadline):
         return False
 
 def getTasks(holdID):
-    sql = "SELECT * FROM tasks WHERE householdid=:holdID"
+    sql = "SELECT * FROM tasks WHERE householdid=:holdID ORDER BY deadline"
     result = db.session.execute(sql, {"holdID":holdID})
     return result.fetchall()
 
