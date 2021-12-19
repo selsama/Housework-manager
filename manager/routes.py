@@ -160,7 +160,11 @@ def editTask(holdID, taskID):
     elif request.form["edit"] == "save":
         name = request.form["name"]
         desc = request.form["description"]
-        tasks.editTask(taskID, name, desc)
+        if request.form.get("complete"):
+            complete = True
+        else:
+            complete = False
+        tasks.editTask(taskID, name, desc, complete)
         tasks.setDeadline(taskID, request.form["deadline"])
         if request.form.get("assigned"):
             tasks.assign(taskID, session["userID"])

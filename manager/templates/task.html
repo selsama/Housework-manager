@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Task {{ task.name }}{% endblock %}
 {% block content %}
-<h3>{{ task.name }}</h3>
+<h3>{{ task.name }} {% if task.complete %} COMPLETE {% endif %}</h3>
 <h5>Deadline: {{ task.deadline }}</h5>
 
 <h5>Task description:</h5>

@@ -24,9 +24,9 @@ def getTask(taskID):
     result = db.session.execute(sql, {"id":taskID})
     return result.fetchone()
 
-def editTask(taskID, name, description):
-    sql = "UPDATE tasks SET name=:name, description=:desc WHERE id=:id"
-    db.session.execute(sql, {"id":taskID, "name":name, "desc":description})
+def editTask(taskID, name, description, complete):
+    sql = "UPDATE tasks SET name=:name, description=:desc, complete=:complete WHERE id=:id"
+    db.session.execute(sql, {"id":taskID, "name":name, "desc":description, "complete":complete})
     db.session.commit()
 
 def setDeadline(taskID, date):

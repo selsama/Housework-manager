@@ -7,6 +7,8 @@
     <h5>Task name:</h5>
     <input type="text" name="name" value="{{ task.name }}">
 
+    <h5>Completed: <input type="checkbox" name="complete" {{ "checked" if task.complete }}></h5>
+
     <h5>Deadline:</h5>
     <input type="date" name="deadline" value="{{ task.deadline }}">
 
