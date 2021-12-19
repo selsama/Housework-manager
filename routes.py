@@ -18,7 +18,6 @@ def login():
     username = request.form["username"]
     password = request.form["password"]
     users.login(username, password)
-    # TODO: Find out how to return the page the user was at after login
     return redirect("/")
 
 @app.route("/register")
@@ -61,6 +60,8 @@ def edit():
 
 @app.route("/myHouseholds")
 def myHouseholds():
+    if not session["userID"]:
+        return render_template("myHouseholds.html")
     list = households.getHouseholds(session["userID"])
     return render_template("myHouseholds.html", households=list)
 
@@ -74,7 +75,7 @@ def new():
     if session["csrf_token"] != request.form["csrf_token"]:
         abort(403)
     households.create(name, session["userID"])
-    return redirect("/myHouseholds") # TODO: direct to the household instead
+    return redirect("/myHouseholds")
 
 @app.route("/household<int:id>")
 def household(id):
@@ -102,8 +103,7 @@ def householdEdit(id):
         else:
             admin = False
         if user == -1:
-            # TODO: give error message
-            return
+            pass
         else:
             households.giveRights(id, user, admin)
     if request.form["action"] == "admin":
@@ -140,7 +140,7 @@ def newTask(id):
     desc = request.form["description"]
     date = request.form["deadline"]
     households.createTask(id, name, desc, date)
-    return redirect("/household" + str(id)) # TODO: direct to the task instead
+    return redirect("/household" + str(id))
 
 @app.route("/household<int:holdID>/task<int:taskID>")
 def task(holdID, taskID):
