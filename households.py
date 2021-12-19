@@ -83,6 +83,7 @@ def reactToAdminLeaving(id):
             deleteHousehold(id)
 
 def deleteHousehold(id):
-    # TODO
-    return
+    sql = "DELETE FROM households WHERE id=:id"
+    db.session.execute(sql, {"id":id})
+    db.session.commit()
 
