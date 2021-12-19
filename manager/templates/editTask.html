@@ -2,11 +2,13 @@
 {% block title %}Editing {{ task.name }}{% endblock %}
 {% block content %}
 <h3>Editing task</h3>
-<a href="/household{{ holdID }}">Back to household</a>
 
 <form action="/household{{ holdID }}/editTask{{ task.id }}" method="POST">
     <h5>Task name:</h5>
     <input type="text" name="name" value="{{ task.name }}">
+
+    <h5>Deadline:</h5>
+    <input type="date" name="deadline" value="{{ task.deadline }}">
 
     <h5>Task description:</h5>
     <textarea rows = "5" cols = "60" name = "description">{{ task.description }}</textarea><br>
@@ -39,5 +41,7 @@
     <input type="hidden" name="edit" value="stop">
 </form>
 
+<br> ----- <br>
+<a href="/household{{ holdID }}">Back to household</a>
 
 {% endblock %}

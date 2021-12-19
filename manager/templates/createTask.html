@@ -9,8 +9,7 @@
 <p>Task description:<br>
 <textarea rows = "5" cols = "60" name = "description"></textarea><br></p>
 <p>Task deadline:<br>
-<input type="date" name="deadline" value="2022-01-20">
-<input type="checkbox" name="noDeadline"> Leave empty</p>
+<input type="date" name="deadline">
 
 <input type="submit" value="Create!">
 <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">

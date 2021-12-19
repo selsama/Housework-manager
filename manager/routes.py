@@ -138,10 +138,7 @@ def newTask(id):
         abort(403)
     name = request.form["name"]
     desc = request.form["description"]
-    if request.form.get("noDeadline"):
-        date = None
-    else:
-        date = request.form["deadline"]
+    date = request.form["deadline"]
     households.createTask(id, name, desc, date)
     return redirect("/household" + str(id)) # TODO: direct to the task instead
 
@@ -164,6 +161,7 @@ def editTask(holdID, taskID):
         name = request.form["name"]
         desc = request.form["description"]
         tasks.editTask(taskID, name, desc)
+        tasks.setDeadline(taskID, request.form["deadline"])
         if request.form.get("assigned"):
             tasks.assign(taskID, session["userID"])
         else:

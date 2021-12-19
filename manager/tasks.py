@@ -31,9 +31,11 @@ def editTask(taskID, name, description):
 
 def setDeadline(taskID, date):
     if not date:
-        return
-    sql = "UPDATE tasks SET deadline=TO_DATE(:date, 'YYYY-MM-DD') WHERE id=:id"
-    db.session.execute(sql, {"id":taskID, "date":date})
+        sql = "UPDATE tasks SET deadline=null WHERE id=:id"
+        db.session.execute(sql, {"id":taskID})
+    else:
+        sql = "UPDATE tasks SET deadline=TO_DATE(:date, 'YYYY-MM-DD') WHERE id=:id"
+        db.session.execute(sql, {"id":taskID, "date":date})
     db.session.commit()
 
 def deleteTask(taskID):
