@@ -12,12 +12,13 @@ Tasks:
 <table border = "1">
     <tr>
       <th>Task title</th>
-      <th>Description</th>
+      <th>Deadline</th>
     </tr>
     {% for task in tasks %}
     <tr>
       <td>{{ task.name }}</td>
-      <td>{{ task.description }}</td>
+      <td>{{ task.deadline }}</td>
+      <td>{{ "DONE!" if task.complete }}</td>
       <td><a href="/household{{ id }}/task{{ task.id }}">Go to task</a></td>
     </tr>
     {% endfor %}
