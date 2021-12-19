@@ -26,9 +26,13 @@ Tasks:
 
 <p><a href="/household{{ id }}/createTask">Create new task</a></p>
 
+<br> ----- <br>
+
 {% if admin %}
 <p><a href="/household{{ id }}/options">Household options</a></p>
 {% endif %}
+
+<br> ----- <br>
 
 <form action="/household{{ id }}/edit" method="POST">
     <p>You can remove yourself from this household.<br>
