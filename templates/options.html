@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Account options{% endblock %}
+{% block content %}
+<h3>Account options</h3>
+
+<form action="/edit" method="POST">
+<h5>Change your nickname</h5>
+<p>Here you can edit the nickname visible for others<br>
+<input type="text" name="nickname" value="{{ nick }}"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="submit" value="Change nickname">
+</form>
+
+<form action="/delete" method="POST">
+<h5>Delete</h5>
+<p>To delete your account, please enter your password<br>
+<input type="password" name="password"></p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+<input type="submit" value="Delete account">
+</form>
+{% endblock %}

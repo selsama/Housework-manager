@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+{% block title %}Create new task{% endblock %}
+{% block content %}
+<h3>Create new task for household {{ holdName }}</h3>
+
+<form action="/household{{ holdID }}/newTask" method="POST">
+<p>Task name: (Required)<br>
+<input type="text" name="name" required></p>
+<p>Task description:<br>
+<textarea rows = "5" cols = "60" name = "description"></textarea><br></p>
+<p>Task deadline:<br>
+<input type="date" name="deadline">
+
+<input type="submit" value="Create!">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+
+<a href="/household{{ holdID }}">Back to household</a>
+{% endblock %}

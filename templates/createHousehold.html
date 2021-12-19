@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}Create new household{% endblock %}
+{% block content %}
+<h3>Create new household</h3>
+
+<form action="/new" method="POST">
+<p>Household name:<br>
+<input type="text" name="name"></p>
+<input type="submit" value="Create!">
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
+</form>
+
+<a href="/myHouseholds">Back to my households</a>
+{% endblock %}
