@@ -151,6 +151,9 @@ def editTask(hold, task):
         pass
     elif request.form["edit"] == "stop":
         return redirect("/household" + str(hold) + "/task" + str(task))
+    elif request.form["edit"] == "delete":
+        tasks.deleteTask(task)
+        return redirect("/household" + str(hold))
     elif request.form["edit"] == "save":
         name = request.form["name"]
         desc = request.form["description"]

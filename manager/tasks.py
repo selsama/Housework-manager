@@ -27,3 +27,8 @@ def editTask(taskID, name, description):
     sql = "UPDATE tasks SET name=:name, description=:desc WHERE id=:id"
     db.session.execute(sql, {"id":taskID, "name":name, "desc":description})
     db.session.commit()
+
+def deleteTask(taskID):
+    sql = "DELETE FROM tasks WHERE id=:id"
+    db.session.execute(sql, {"id":taskID})
+    db.session.commit()
