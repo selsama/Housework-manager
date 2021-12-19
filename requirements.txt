@@ -6,7 +6,6 @@ dataclasses==0.6
 Django==3.0.6
 Flask==1.1.2
 Flask-SQLAlchemy==2.5.1
-funicorn==1.0.6
 greenlet==1.1.2
 image==1.5.31
 importlib-metadata==4.8.2
