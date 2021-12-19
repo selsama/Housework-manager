@@ -139,11 +139,10 @@ def newTask(id):
     name = request.form["name"]
     desc = request.form["description"]
     if request.form.get("noDeadline"):
-        date = Null
+        date = None
     else:
         date = request.form["deadline"]
-        print(date)
-    households.createTask(id, name, desc, str(date))
+    households.createTask(id, name, desc, date)
     return redirect("/household" + str(id)) # TODO: direct to the task instead
 
 @app.route("/household<int:holdID>/task<int:taskID>")

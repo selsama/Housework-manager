@@ -2,11 +2,12 @@ from db import db
 
 def create(holdID, name, description, deadline):
     try:
-        sql = "INSERT INTO tasks (name, description, householdid, deadline) VALUES (:name, :description, :householdID, TO_DATE(:deadline, 'YYYY-MM-DD'))"
-        db.session.execute(sql, {"name":name, "description":description, "householdID":holdID, "deadline":deadline})
+        sql = "INSERT INTO tasks (name, description, householdid) VALUES (:name, :description, :householdID)"
+        db.session.execute(sql, {"name":name, "description":description, "householdID":holdID})
         sql = "SELECT MAX(id) FROM tasks"
         id = db.session.execute(sql).fetchone()
         db.session.commit()
+        setDeadline(id.max, deadline)
         return id.max
     except:
         print("error in creating task")
@@ -26,6 +27,13 @@ def getTask(taskID):
 def editTask(taskID, name, description):
     sql = "UPDATE tasks SET name=:name, description=:desc WHERE id=:id"
     db.session.execute(sql, {"id":taskID, "name":name, "desc":description})
+    db.session.commit()
+
+def setDeadline(taskID, date):
+    if not date:
+        return
+    sql = "UPDATE tasks SET deadline=TO_DATE(:date, 'YYYY-MM-DD') WHERE id=:id"
+    db.session.execute(sql, {"id":taskID, "date":date})
     db.session.commit()
 
 def deleteTask(taskID):
