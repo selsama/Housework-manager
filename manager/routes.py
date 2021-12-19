@@ -144,3 +144,16 @@ def newTask(id):
 def task(hold, task):
     task = tasks.getTask(task)
     return render_template("task.html", holdID=hold, task=task)
+
+@app.route("/household<int:hold>/editTask<int:task>", methods=["POST"])
+def editTask(hold, task):
+    if request.form["edit"] == "start":
+        pass
+    elif request.form["edit"] == "stop":
+        return redirect("/household" + str(hold) + "/task" + str(task))
+    elif request.form["edit"] == "save":
+        name = request.form["name"]
+        desc = request.form["description"]
+        tasks.editTask(task, name, desc)
+    task = tasks.getTask(task)
+    return render_template("editTask.html", holdID=hold, task=task)

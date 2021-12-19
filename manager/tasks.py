@@ -22,3 +22,8 @@ def getTask(taskID):
     sql = "SELECT * FROM tasks WHERE id=:id"
     result = db.session.execute(sql, {"id":taskID})
     return result.fetchone()
+
+def editTask(taskID, name, description):
+    sql = "UPDATE tasks SET name=:name, description=:desc WHERE id=:id"
+    db.session.execute(sql, {"id":taskID, "name":name, "desc":description})
+    db.session.commit()
